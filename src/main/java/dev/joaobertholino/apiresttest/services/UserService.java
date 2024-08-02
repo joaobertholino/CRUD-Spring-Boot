@@ -43,6 +43,6 @@ public class UserService {
 
 	@Transactional
 	public void deleteById(UUID id) {
-		this.userRepository.deleteById(id);
+		this.userRepository.deleteById(findById(id).getId());
 	}
 }

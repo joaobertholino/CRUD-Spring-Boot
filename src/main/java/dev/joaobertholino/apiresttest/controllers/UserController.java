@@ -49,7 +49,7 @@ public class UserController {
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
-		this.userService.deleteById(this.userService.findById(id).getId());
+		this.userService.deleteById(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 }
