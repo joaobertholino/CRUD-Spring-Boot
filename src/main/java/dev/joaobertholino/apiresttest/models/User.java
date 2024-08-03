@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -69,6 +71,10 @@ public class User implements Serializable {
 
 	public void setEmail(@NotBlank String email) {
 		this.email = email;
+	}
+
+	public Set<Order> getOrderList() {
+		return ORDER_LIST;
 	}
 
 	@Override
