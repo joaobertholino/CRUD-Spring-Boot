@@ -7,7 +7,7 @@ public enum OrderStatus {
 	CANCELLED("Cancelled"),
 	DELIVERED("Delivered");
 
-	private String value;
+	private final String value;
 
 	OrderStatus(String value) {
 		this.value = value;
@@ -15,9 +15,5 @@ public enum OrderStatus {
 
 	public String getValue() {
 		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
 	}
 }
