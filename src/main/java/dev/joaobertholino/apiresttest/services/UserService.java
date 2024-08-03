@@ -21,7 +21,9 @@ public class UserService {
 	}
 
 	public List<User> findAll() {
-		return this.userRepository.findAll();
+		List<User> userList = this.userRepository.findAll();
+		if(userList.isEmpty()) throw new UserNotFoundException("No user found in the database");
+		return userList;
 	}
 
 	public User findById(UUID id) {
