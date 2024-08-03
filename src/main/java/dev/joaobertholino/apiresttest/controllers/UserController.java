@@ -28,9 +28,8 @@ public class UserController {
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserDto> findById(@PathVariable UUID id) {
-		UserDto userDto = new UserDto();
-		BeanUtils.copyProperties(this.userService.findById(id), userDto);
-		return ResponseEntity.status(HttpStatus.OK).body(userDto);
+		UserDto userDto = new UserDto(this.userService.findById(id));
+		return ResponseEntity.status(HttpStatus.FOUND).body(userDto);
 	}
 
 	@PostMapping(value = "/insert")
