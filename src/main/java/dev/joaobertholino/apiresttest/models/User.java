@@ -27,6 +27,9 @@ public class User implements Serializable {
 	@NotBlank
 	private String email;
 
+	@OneToMany(mappedBy = "client")
+	private final Set<Order> ORDER_LIST = new HashSet<>();
+
 	public User() {
 	}
 
