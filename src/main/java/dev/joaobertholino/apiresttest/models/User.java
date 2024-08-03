@@ -29,7 +29,7 @@ public class User implements Serializable {
 	@NotBlank
 	private String email;
 
-	@OneToMany(mappedBy = "client")
+	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
 	private final Set<Order> ORDER_LIST = new HashSet<>();
 
 	public User() {
