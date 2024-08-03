@@ -23,7 +23,7 @@ public class UserController {
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<UserDto>> findAll() {
 		List<UserDto> resultList = this.userService.findAll().stream().map(user -> new UserDto(user)).toList();
-		return ResponseEntity.status(HttpStatus.OK).body(resultList);
+		return ResponseEntity.status(HttpStatus.FOUND).body(resultList);
 	}
 
 	@GetMapping(value = "/{id}")
