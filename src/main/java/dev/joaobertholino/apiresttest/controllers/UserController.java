@@ -27,9 +27,9 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<UserDto> findById(@PathVariable String id) {
+	public ResponseEntity<UserDto> findById(@PathVariable UUID id) {
 		UserDto userDto = new UserDto();
-		BeanUtils.copyProperties(this.userService.findById(UUID.fromString(id)), userDto);
+		BeanUtils.copyProperties(this.userService.findById(id), userDto);
 		return ResponseEntity.status(HttpStatus.OK).body(userDto);
 	}
 
