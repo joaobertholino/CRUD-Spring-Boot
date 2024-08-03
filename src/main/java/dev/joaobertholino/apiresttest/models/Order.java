@@ -1,5 +1,6 @@
 package dev.joaobertholino.apiresttest.models;
 
+import dev.joaobertholino.apiresttest.models.enums.OrderStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -22,6 +23,9 @@ public class Order implements Serializable {
 	@NotNull
 	private LocalDateTime orderDate;
 
+	@NotNull
+	private OrderStatus status;
+
 	@ManyToOne
 	@NotNull
 	private User client;
@@ -29,8 +33,9 @@ public class Order implements Serializable {
 	public Order() {
 	}
 
-	public Order(LocalDateTime orderDate, User client) {
+	public Order(LocalDateTime orderDate, OrderStatus status, User client) {
 		this.orderDate = orderDate;
+		this.status = status;
 		this.client = client;
 	}
 
@@ -48,6 +53,14 @@ public class Order implements Serializable {
 
 	public void setOrderDate(@NotNull LocalDateTime orderDate) {
 		this.orderDate = orderDate;
+	}
+
+	public @NotNull OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(@NotNull OrderStatus status) {
+		this.status = status;
 	}
 
 	public @NotNull User getClient() {
