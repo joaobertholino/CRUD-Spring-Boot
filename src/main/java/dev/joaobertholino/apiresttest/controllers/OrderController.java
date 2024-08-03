@@ -30,8 +30,7 @@ public class OrderController {
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<OrderDto> findById(@PathVariable UUID id) {
-		OrderDto orderDto = new OrderDto();
-		BeanUtils.copyProperties(this.orderService.findById(id), orderDto);
+		OrderDto orderDto = new OrderDto(this.orderService.findById(id));
 		return ResponseEntity.status(HttpStatus.FOUND).body(orderDto);
 	}
 }
