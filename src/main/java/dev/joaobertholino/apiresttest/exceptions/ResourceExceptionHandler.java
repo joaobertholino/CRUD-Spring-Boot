@@ -1,6 +1,7 @@
 package dev.joaobertholino.apiresttest.exceptions;
 
 import dev.joaobertholino.apiresttest.services.exceptions.OrderNotFoundException;
+import dev.joaobertholino.apiresttest.services.exceptions.ProductNotFoundException;
 import dev.joaobertholino.apiresttest.services.exceptions.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,15 @@ public class ResourceExceptionHandler {
 		LocalDateTime timestamp = LocalDateTime.now();
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		String error = "Order not found";
+		StandardError standardError = new StandardError(timestamp, status.value(), error, exception.getMessage(), servletRequest.getRequestURI());
+		return ResponseEntity.status(status).body(standardError);
+	}
+
+	@ExceptionHandler(ProductNotFoundException.class)
+	public ResponseEntity<StandardError> productNotFoundException(ProductNotFoundException exception, HttpServletRequest servletRequest) {
+		LocalDateTime timestamp = LocalDateTime.now();
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		String error = "Product not found";
 		StandardError standardError = new StandardError(timestamp, status.value(), error, exception.getMessage(), servletRequest.getRequestURI());
 		return ResponseEntity.status(status).body(standardError);
 	}
