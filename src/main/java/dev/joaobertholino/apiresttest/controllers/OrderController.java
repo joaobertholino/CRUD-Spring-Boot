@@ -2,7 +2,6 @@ package dev.joaobertholino.apiresttest.controllers;
 
 import dev.joaobertholino.apiresttest.dtos.OrderDto;
 import dev.joaobertholino.apiresttest.services.OrderService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
