@@ -1,24 +1,14 @@
 package dev.joaobertholino.apiresttest.dtos;
 
 import dev.joaobertholino.apiresttest.models.User;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UserDto {
-
-	@NotBlank
 	private String firstName;
-
-	@NotBlank
 	private String lastName;
-
-	@NotBlank
 	private String email;
-
-	@NotNull
 	private Set<OrderDto> orderList;
 
 	public UserDto() {
@@ -31,27 +21,27 @@ public class UserDto {
 		this.orderList = user.getOrderList().stream().map(order -> new OrderDto(order)).collect(Collectors.toSet());
 	}
 
-	public @NotBlank String getFirstName() {
+	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(@NotBlank String firstName) {
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	public @NotBlank String getLastName() {
+	public String getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(@NotBlank String lastName) {
+	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-	public @NotBlank String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(@NotBlank String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
