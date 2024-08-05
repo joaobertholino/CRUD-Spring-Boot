@@ -27,7 +27,7 @@ public class OrderController {
 		return ResponseEntity.status(HttpStatus.FOUND).body(listOrderDto);
 	}
 
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "/find/{id}")
 	public ResponseEntity<OrderDto> findById(@PathVariable UUID id) {
 		OrderDto orderDto = new OrderDto(this.orderService.findById(id));
 		return ResponseEntity.status(HttpStatus.FOUND).body(orderDto);

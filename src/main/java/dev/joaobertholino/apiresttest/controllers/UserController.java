@@ -26,7 +26,7 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.FOUND).body(resultList);
 	}
 
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "/find/{id}")
 	public ResponseEntity<UserDto> findById(@PathVariable UUID id) {
 		UserDto userDto = new UserDto(this.userService.findById(id));
 		return ResponseEntity.status(HttpStatus.FOUND).body(userDto);
@@ -40,13 +40,13 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
 	}
 
-	@PutMapping(value = "/{id}")
+	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<UserDto> update(@PathVariable UUID id, @RequestBody UserDto userUpdated) {
 		this.userService.update(id, userUpdated);
 		return ResponseEntity.status(HttpStatus.OK).body(userUpdated);
 	}
 
-	@DeleteMapping(value = "/{id}")
+	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
 		this.userService.deleteById(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
