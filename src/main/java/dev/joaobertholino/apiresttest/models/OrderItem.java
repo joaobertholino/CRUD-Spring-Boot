@@ -3,6 +3,7 @@ package dev.joaobertholino.apiresttest.models;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -15,8 +16,12 @@ public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private OrderItemPK id = new OrderItemPK();
+	private final OrderItemPK id = new OrderItemPK();
+
+	@NotNull
 	private Integer amount;
+
+	@NotNull
 	private Double price;
 
 	public OrderItem() {
@@ -33,28 +38,20 @@ public class OrderItem implements Serializable {
 		return id;
 	}
 
-	public void setId(OrderItemPK id) {
-		this.id = id;
-	}
-
-	public Integer getAmount() {
+	public @NotNull Integer getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
+	public void setAmount(@NotNull Integer amount) {
 		this.amount = amount;
 	}
 
-	public Double getPrice() {
+	public @NotNull Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(@NotNull Double price) {
 		this.price = price;
-	}
-
-	public Double DoubleSubTotal() {
-		return this.amount * this.price;
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package dev.joaobertholino.apiresttest.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,12 +20,18 @@ public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
+
+	@NotBlank
 	private String name;
+
+	@NotBlank
 	private String description;
+
+	@NotNull
 	private Double price;
 
 	@OneToMany(mappedBy = "id.product", cascade = CascadeType.ALL)
-	private final Set<OrderItem> ITEMS = new HashSet<>();
+	private final Set<OrderItem> ORDER_ITEMS = new HashSet<>();
 
 	public Product() {
 	}
@@ -66,8 +74,8 @@ public class Product implements Serializable {
 		this.price = price;
 	}
 
-	public Set<OrderItem> getITEMS() {
-		return ITEMS;
+	public Set<OrderItem> getORDER_ITEMS() {
+		return ORDER_ITEMS;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package dev.joaobertholino.apiresttest.models;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -13,24 +14,26 @@ public class OrderItemPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
+	@NotNull
 	private Order order;
 
 	@ManyToOne
+	@NotNull
 	private Product product;
 
-	public Order getOrder() {
+	public @NotNull Order getOrder() {
 		return order;
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(@NotNull Order order) {
 		this.order = order;
 	}
 
-	public Product getProduct() {
+	public @NotNull Product getProduct() {
 		return product;
 	}
 
-	public void setProduct(Product product) {
+	public void setProduct(@NotNull Product product) {
 		this.product = product;
 	}
 
