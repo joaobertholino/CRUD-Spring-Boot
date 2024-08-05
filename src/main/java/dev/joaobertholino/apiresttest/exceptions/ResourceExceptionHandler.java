@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 
@@ -56,6 +57,15 @@ public class ResourceExceptionHandler {
 		LocalDateTime timestamp = LocalDateTime.now();
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		String error = "JPA transactional error";
+		StandardError standardError = new StandardError(timestamp, status.value(), error, exception.getMessage(), servletRequest.getRequestURI());
+		return ResponseEntity.status(status).body(standardError);
+	}
+
+	@ExceptionHandler(NoResourceFoundException.class)
+	public ResponseEntity<StandardError> noResourceFoundException(NoResourceFoundException exception, HttpServletRequest servletRequest) {
+		LocalDateTime timestamp = LocalDateTime.now();
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		String error = "Resource not found";
 		StandardError standardError = new StandardError(timestamp, status.value(), error, exception.getMessage(), servletRequest.getRequestURI());
 		return ResponseEntity.status(status).body(standardError);
 	}
