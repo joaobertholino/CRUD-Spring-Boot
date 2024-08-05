@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -29,6 +31,9 @@ public class Order implements Serializable {
 	@ManyToOne
 	@NotNull
 	private User client;
+
+	@OneToMany(mappedBy = "id.order", cascade = CascadeType.ALL)
+	private final Set<OrderItem> ITEMS = new HashSet<>();
 
 	public Order() {
 	}
@@ -69,6 +74,10 @@ public class Order implements Serializable {
 
 	public void setClient(@NotNull User client) {
 		this.client = client;
+	}
+
+	public Set<OrderItem> getITEMS() {
+		return ITEMS;
 	}
 
 	@Override
