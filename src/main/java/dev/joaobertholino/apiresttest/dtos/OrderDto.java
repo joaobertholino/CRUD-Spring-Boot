@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class OrderDto {
 	private LocalDateTime orderDate;
 	private OrderStatus status;
-	private Set<OrderItemDto> orderItemDto;
+	private Set<OrderItemDto> orderItem;
 
 	public OrderDto() {
 	}
@@ -18,7 +18,7 @@ public class OrderDto {
 	public OrderDto(Order order) {
 		this.orderDate = order.getOrderDate();
 		this.status = order.getStatus();
-		this.orderItemDto = order.getITEMS().stream().map(orderItem -> new OrderItemDto(orderItem)).collect(Collectors.toSet());
+		this.orderItem = order.getITEMS().stream().map(orderItem -> new OrderItemDto(orderItem)).collect(Collectors.toSet());
 	}
 
 	public LocalDateTime getOrderDate() {
@@ -37,11 +37,11 @@ public class OrderDto {
 		this.status = status;
 	}
 
-	public Set<OrderItemDto> getOrderItemDto() {
-		return orderItemDto;
+	public Set<OrderItemDto> getOrderItem() {
+		return orderItem;
 	}
 
-	public void setOrderItemDto(Set<OrderItemDto> orderItemDto) {
-		this.orderItemDto = orderItemDto;
+	public void setOrderItem(Set<OrderItemDto> orderItem) {
+		this.orderItem = orderItem;
 	}
 }
