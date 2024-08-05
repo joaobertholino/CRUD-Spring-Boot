@@ -22,6 +22,7 @@ public class ProductService {
 
 	public List<ProductDto> findAll() {
 		List<Product> productList = this.productRepository.findAll();
+		if (productList.isEmpty()) throw new ProductNotFoundException("No product found in the database");
 		return productList.stream().map(product -> new ProductDto(product)).toList();
 	}
 
