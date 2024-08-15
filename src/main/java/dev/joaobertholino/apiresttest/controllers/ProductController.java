@@ -28,17 +28,17 @@ public class ProductController {
 		return ResponseEntity.status(HttpStatus.FOUND).body(this.productService.findById(id));
 	}
 
-	@GetMapping(value = "/insert")
+	@PostMapping(value = "/insert")
 	public ResponseEntity<ProductDto> insert(@RequestBody ProductDto newProduct) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.productService.insert(newProduct));
 	}
 
-	@GetMapping(value = "/update/{id}")
+	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<ProductDto> update(@PathVariable UUID id, @RequestBody ProductDto productUpdated) {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(this.productService.update(id, productUpdated));
 	}
 
-	@GetMapping(value = "/delete/{id}")
+	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
 		this.productService.deleteById(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
