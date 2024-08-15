@@ -1,5 +1,6 @@
 package dev.joaobertholino.apiresttest.services;
 
+import dev.joaobertholino.apiresttest.dtos.OrderDto;
 import dev.joaobertholino.apiresttest.models.Order;
 import dev.joaobertholino.apiresttest.repositories.OrderRepository;
 import dev.joaobertholino.apiresttest.services.exceptions.OrderNotFoundException;
@@ -17,12 +18,14 @@ public class OrderService {
 		this.orderRepository = orderRepository;
 	}
 
-	public List<Order> findAll() {
-		return this.orderRepository.findAll();
+	public List<OrderDto> findAll() {
+		List<Order> orderList = this.orderRepository.findAll();
+		if (orderList.isEmpty()) throw new OrderNotFoundException("Order list is empty");
+		return orderList.stream().map(order -> new OrderDto(order)).toList();
 	}
 
-	public Order findById(UUID id) {
+	public OrderDto findById(UUID id) {
 		Optional<Order> result = this.orderRepository.findById(id);
-		return result.orElseThrow(() -> new OrderNotFoundException());
+		return new OrderDto(result.orElseThrow(() -> new OrderNotFoundException("Order referring to the id provided was not found")));
 	}
 }

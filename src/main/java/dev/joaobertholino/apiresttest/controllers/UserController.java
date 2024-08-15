@@ -22,21 +22,19 @@ public class UserController {
 
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<UserDto>> findAll() {
-		List<UserDto> resultList = this.userService.findAll().stream().map(user -> new UserDto(user)).toList();
+		List<UserDto> resultList = this.userService.findAll();
 		return ResponseEntity.status(HttpStatus.FOUND).body(resultList);
 	}
 
 	@GetMapping(value = "/find/{id}")
 	public ResponseEntity<UserDto> findById(@PathVariable UUID id) {
-		UserDto userDto = new UserDto(this.userService.findById(id));
+		UserDto userDto = this.userService.findById(id);
 		return ResponseEntity.status(HttpStatus.FOUND).body(userDto);
 	}
 
 	@PostMapping(value = "/insert")
 	public ResponseEntity<UserDto> insert(@RequestBody UserDto userDto) {
-		User user = new User();
-		BeanUtils.copyProperties(userDto, user);
-		this.userService.insert(user);
+		this.userService.insert(userDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
 	}
 

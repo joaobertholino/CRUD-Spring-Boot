@@ -22,6 +22,7 @@ public class Product implements Serializable {
 	private UUID id;
 
 	@NotBlank
+	@Column(unique = true)
 	private String name;
 
 	@NotBlank

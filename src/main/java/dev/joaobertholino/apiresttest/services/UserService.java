@@ -20,31 +20,37 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 
-	public List<User> findAll() {
+	public List<UserDto> findAll() {
 		List<User> userList = this.userRepository.findAll();
 		if (userList.isEmpty()) throw new UserNotFoundException("No user found in the database");
-		return userList;
+		return userList.stream().map(user -> new UserDto(user)).toList();
 	}
 
-	public User findById(UUID id) {
+	public UserDto findById(UUID id) {
 		Optional<User> userResult = this.userRepository.findById(id);
-		return userResult.orElseThrow(() -> new UserNotFoundException("User referring to the previous ID was not found"));
+		User user = userResult.orElseThrow(() -> new UserNotFoundException("User referring to the previous ID was not found"));
+		return new UserDto(user);
 	}
 
 	@Transactional
-	public void insert(User user) {
-		this.userRepository.save(user);
+	public void insert(UserDto user) {
+		User userToSave = new User();
+		BeanUtils.copyProperties(user, userToSave);
+		this.userRepository.save(userToSave);
 	}
 
 	@Transactional
 	public void update(UUID id, UserDto userUpdated) {
-		User user = findById(id);
+		UserDto user = findById(id);
 		BeanUtils.copyProperties(userUpdated, user);
-		this.userRepository.save(user);
+
+		User userToSave = this.userRepository.getReferenceById(id);
+		BeanUtils.copyProperties(user, userToSave);
+		this.userRepository.save(userToSave);
 	}
 
 	@Transactional
 	public void deleteById(UUID id) {
-		this.userRepository.deleteById(findById(id).getId());
+		this.userRepository.deleteById(this.userRepository.getReferenceById(id).getId());
 	}
 }

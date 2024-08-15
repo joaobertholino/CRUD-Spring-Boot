@@ -4,6 +4,7 @@ import dev.joaobertholino.apiresttest.services.exceptions.OrderNotFoundException
 import dev.joaobertholino.apiresttest.services.exceptions.ProductNotFoundException;
 import dev.joaobertholino.apiresttest.services.exceptions.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionSystemException;
@@ -66,6 +67,15 @@ public class ResourceExceptionHandler {
 		LocalDateTime timestamp = LocalDateTime.now();
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		String error = "Resource not found";
+		StandardError standardError = new StandardError(timestamp, status.value(), error, exception.getMessage(), servletRequest.getRequestURI());
+		return ResponseEntity.status(status).body(standardError);
+	}
+
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<StandardError> dataIntegrityViolationException(DataIntegrityViolationException exception, HttpServletRequest servletRequest) {
+		LocalDateTime timestamp = LocalDateTime.now();
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		String error = "Database integrity violated";
 		StandardError standardError = new StandardError(timestamp, status.value(), error, exception.getMessage(), servletRequest.getRequestURI());
 		return ResponseEntity.status(status).body(standardError);
 	}

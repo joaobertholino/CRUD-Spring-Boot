@@ -23,13 +23,13 @@ public class OrderController {
 
 	@GetMapping(value = "all")
 	public ResponseEntity<List<OrderDto>> findAll() {
-		List<OrderDto> listOrderDto = this.orderService.findAll().stream().map(order -> new OrderDto(order)).toList();
+		List<OrderDto> listOrderDto = this.orderService.findAll();
 		return ResponseEntity.status(HttpStatus.FOUND).body(listOrderDto);
 	}
 
 	@GetMapping(value = "/find/{id}")
 	public ResponseEntity<OrderDto> findById(@PathVariable UUID id) {
-		OrderDto orderDto = new OrderDto(this.orderService.findById(id));
+		OrderDto orderDto = this.orderService.findById(id);
 		return ResponseEntity.status(HttpStatus.FOUND).body(orderDto);
 	}
 }

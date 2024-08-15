@@ -21,12 +21,15 @@ public class User implements Serializable {
 	private UUID id;
 
 	@NotBlank
+	@Column(unique = true)
 	private String firstName;
 
 	@NotBlank
+	@Column(unique = true)
 	private String lastName;
 
 	@NotBlank
+	@Column(unique = true)
 	private String email;
 
 	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
