@@ -34,14 +34,14 @@ public class UserController {
 
 	@PostMapping(value = "/insert")
 	public ResponseEntity<UserDto> insert(@RequestBody UserDto userDto) {
-		this.userService.insert(userDto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
+		UserDto userDtoSaved = this.userService.insert(userDto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(userDtoSaved);
 	}
 
 	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<UserDto> update(@PathVariable UUID id, @RequestBody UserDto userUpdated) {
-		this.userService.update(id, userUpdated);
-		return ResponseEntity.status(HttpStatus.OK).body(userUpdated);
+		UserDto userSaved = this.userService.update(id, userUpdated);
+		return ResponseEntity.status(HttpStatus.OK).body(userSaved);
 	}
 
 	@DeleteMapping(value = "/delete/{id}")
