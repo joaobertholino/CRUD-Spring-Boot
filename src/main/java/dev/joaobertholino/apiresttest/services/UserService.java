@@ -33,20 +33,22 @@ public class UserService {
 	}
 
 	@Transactional
-	public void insert(UserDto user) {
+	public UserDto insert(UserDto userDto) {
 		User userToSave = new User();
-		BeanUtils.copyProperties(user, userToSave);
+		BeanUtils.copyProperties(userDto, userToSave);
 		this.userRepository.save(userToSave);
+		return userDto;
 	}
 
 	@Transactional
-	public void update(UUID id, UserDto userUpdated) {
+	public UserDto update(UUID id, UserDto userUpdated) {
 		UserDto user = findById(id);
 		BeanUtils.copyProperties(userUpdated, user);
 
 		User userToSave = this.userRepository.getReferenceById(id);
 		BeanUtils.copyProperties(user, userToSave);
 		this.userRepository.save(userToSave);
+		return userUpdated;
 	}
 
 	@Transactional
